@@ -9,10 +9,12 @@ export const Modal = ({ closeModal }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const id = localStorage.getItem("id");
 
         const response = api.post("/produtos", {
             nome,
             preco,
+            Distribuidor_id: id
         });
 
         if (response.status === 200) {
