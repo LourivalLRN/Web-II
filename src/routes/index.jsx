@@ -7,7 +7,7 @@ import { Painel } from "../pages/fruta.jsx"
 
 const name = localStorage.getItem("name");
 
-export const RotaPrivada = ({ redirectPath = '/home', children }) => {
+export const RotaPrivada = ({ redirectPath = '/', children }) => {
     if (!name) {
       return <Navigate to={redirectPath} replace />;
     }
@@ -21,7 +21,7 @@ export const AppRouter = () => {
             <Routes>
                 <Route path="/login" exact element={<Login />} />
                 <Route path="/cadastro" exact element={<CadastroForm />} />
-                <Route path="/home" exact element={<HomeInicial />} /> 
+                <Route path="/" exact element={<HomeInicial />} /> 
                 <Route path="/painel" exact element={
                     <RotaPrivada>
                         <Painel />
