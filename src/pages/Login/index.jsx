@@ -20,6 +20,8 @@ export const Login = () => {
 
       if (response.status === 200) {
         localStorage.setItem("name", response.data.distribuidor.nome);
+        localStorage.setItem("token-distribuidor", response.data.token);
+        localStorage.setItem("id", response.data.distribuidor.id);
         navigate("/");
       } else {
         alert("Erro ao realizar o login, check suas credenciais");

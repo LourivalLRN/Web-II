@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { api } from "../../../service/api";
 
 import './styles.css'
 
@@ -6,12 +7,26 @@ export const Modal = ({ closeModal }) => {
     const [nome, setNome] = useState("");
     const [preco, setPreco] = useState(0);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const response = api.post("/produtos", {
+            nome,
+            preco,
+        });
+
+        if (response.status === 200) {
+            alert("Produto cadastrado com sucesso!");
+            closeModal();
+        }
+    }
+
     return (
         <div className="container-modal">
-            <form className="form-modal" 
-            onSubmit={(e) => {
-            e.preventDefault();
-            }}>
+            <form 
+                className="form-modal"
+                onClick={handleSubmit}
+            >
 
             <div className="container-header">
                 <span className="login-form-title">
