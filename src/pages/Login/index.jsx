@@ -1,15 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import frut from "../../assets/frutt.png";
 import { LayoutComponents } from "../../components/LayoutComponents";
+import { api } from "../../service/api";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await api.post("/sessionDistribuidores", {
+        email,
+        senha: password,
+      });
+
+      if (response.status === 200) {
+        localStorage.setItem("name", response.data.distribuidor.nome);
+        navigate("/");
+      } else {
+        alert("Erro ao realizar o login, check suas credenciais");
+      }
+    } catch (error) {
+      alert("Erro ao realizar o login, por favor tente novameante mais tarde");
+    }
+  }
 
   return (
     <LayoutComponents>
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleSubmit}>
         <span className="login-form-title">Distribuidora de Frutas</span>
 
         <span className="login-form-title">
@@ -19,6 +41,7 @@ export const Login = () => {
         <div className="wrap-input">
           <input
             className={email !== "" ? "has-val input" : "input"}
+            name="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -29,6 +52,7 @@ export const Login = () => {
         <div className="wrap-input">
           <input
             className={password !== "" ? "has-val input" : "input"}
+            name="senha"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -37,7 +61,7 @@ export const Login = () => {
         </div>
 
         <div className="contanier-login-form-btn">
-          <button className="login-form-btn">Login</button>
+          <button type="submit" className="login-form-btn">Login</button>
         </div>
 
         <div className="text-center">

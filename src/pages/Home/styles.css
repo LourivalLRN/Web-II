@@ -21,18 +21,22 @@
 }
 
 .home ul {
-    margin-bottom: 20px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 
     list-style: none;
-    text-decoration: none;
     
 }
 
+a {
+    text-decoration: none;
+    list-style: none;
+}
 
-.home ul li {
+
+.home li {
     margin-left: 16px;
     text-decoration: none;
 
@@ -69,6 +73,16 @@
 .header {
     width: 80%;
     
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav span {
+    color: #fff;
 }
 
 hr {
@@ -156,5 +170,28 @@ hr {
         text-align: center;
         color: #fff;
 
+}
+
+.sessions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.logged {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logged span {
+    margin-right: 10px;
+}
+
+.logout {
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
 

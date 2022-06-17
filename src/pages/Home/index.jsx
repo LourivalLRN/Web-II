@@ -4,11 +4,20 @@ import frutahome from "../../assets/frutahome.jpg";
 import './styles.css'
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { useState } from "react";
+import { AiOutlineLogout } from 'react-icons/ai';
 
 
 export const HomeInicial = () => {
- 
-  
+    const [logged, setLogged] = useState(() => {
+       return localStorage.getItem("name");
+    });
+
+    const handleLogout = () => {
+        localStorage.clear();
+        setLogged(false);
+    }
+
   return (
       <div className="container-home">
           <LayoutComponents>
@@ -22,14 +31,27 @@ export const HomeInicial = () => {
                     <li>Produtos</li>
                     <li>Ofertas</li>
                     <li>Contatos</li>
-                    <Link className="txt3" to="/cadastro">
-                    <li>Cadastro</li>
-                    </Link>
-                    <Link className="txt4" to="/login">
-                    <li>Login</li>
-                    </Link>
-
                 </ul>
+                {logged ? (
+                    <div className="logged">
+                        <span>{logged}</span>
+                        <button onClick={handleLogout} className="logout">
+                            <AiOutlineLogout 
+                                size={20}
+                                color="#fff"
+                            />
+                        </button>
+                    </div>
+                ) :(
+                    <div className="sessions">
+                        <Link className="txt4" to="/login">
+                        <li>Login</li>
+                        </Link>
+                        <Link className="txt3" to="/cadastro">
+                        <li>Cadastro</li>
+                        </Link>
+                    </div>
+                )}
             </nav>
         </header>
         <hr></hr>

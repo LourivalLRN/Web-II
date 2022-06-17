@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { LayoutComponents } from "../../components/LayoutComponents";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import frut from "../../assets/frutt.png";
+import { api } from "../../service/api";
 
 export const CadastroForm = () => {
   const [name, setName] = useState("");
@@ -9,15 +10,31 @@ export const CadastroForm = () => {
   const [endereco, setEndereco] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await api.post("/distribuidores", {
+      CNPJ: cnpj,
+      nome: name,
+      email: email,
+      senha: password,
+      endereco: endereco,
+    });
+
+    if (response.status === 200) {
+      alert("Cadastro realizado com sucesso!");
+      navigate("/login");
+    } else {
+      alert("Erro ao realizar o cadastro, por favor tente novameante mais tarde");
+    }
+  }
   
   return (
     <LayoutComponents>
-      <form className="login-form" 
-        onSubmit={(e) => {
-        e.preventDefault();
-        console.log({name, cnpj, endereco, email, password});
-        }}>
+      <form className="login-form" onSubmit={handleSubmit}>
 
         <span className="login-form-title">
           Cadastro Distribuidora de Frutas
@@ -79,7 +96,7 @@ export const CadastroForm = () => {
         </div>
 
         <div className="contanier-login-form-btn">
-          <button className="login-form-btn">Cadastrar</button>
+          <button type="submit" className="login-form-btn">Cadastrar</button>
         </div>
 
         <div className="text-center">
