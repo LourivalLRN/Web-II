@@ -56,6 +56,8 @@ export const Modal = ({ closeModal }) => {
             />
             <span className="focus-input" data-placeholder="Preço"></span>
         </div>
+
+        <button type="submit">Cadastrar</button>
             
         </form>
     </div>
